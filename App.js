@@ -1,4 +1,8 @@
 import { StatusBar } from "expo-status-bar";
+import {
+  useDimensions,
+  useDeviceOrientation,
+} from "@react-native-community/hooks";
 import React from "react";
 import {
   StyleSheet,
@@ -12,12 +16,26 @@ import {
   Button,
   Alert,
   Platform,
+  Dimensions,
 } from "react-native";
 
 export default function App() {
+  console.log(useDeviceOrientation());
+  //destructuring orientation obj
+  const { landscape } = useDeviceOrientation();
   const handlePress = () => console.log("booped");
+
   return (
     <SafeAreaView style={styles.container}>
+      <View
+        style={{
+          backgroundColor: "dodgerblue",
+          width: "50%",
+          // if landscape: 10%, otherwise: 20%
+          height: landscape ? "10%" : "20%",
+        }}
+      ></View>
+
       <Text numberOfLines={1} onPress={handlePress}>
         boop
       </Text>
@@ -31,7 +49,7 @@ export default function App() {
         />
       </TouchableHighlight>
       <Button
-        color="red"
+        color="#03CD00"
         title="click"
         onPress={() =>
           Alert.alert("Cool title", "Cool message", [
@@ -51,8 +69,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     alignItems: "center",
-    justifyContent: "center",
+    // justifyContent: "center",
     // padding top if android, otheriwse 0
-    paddingTop: Platform.OS === "android" ? 20 : 0,
+    // paddingTop: Platform.OS === "android" ? 20 : 0,
   },
 });
