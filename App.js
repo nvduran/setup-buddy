@@ -3,7 +3,7 @@ import {
   useDimensions,
   useDeviceOrientation,
 } from "@react-native-community/hooks";
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -23,17 +23,37 @@ export default function App() {
   console.log(useDeviceOrientation());
   //destructuring orientation obj
   const { landscape } = useDeviceOrientation();
-  const handlePress = () => console.log("booped");
+  const handlePress = (word) => {
+    console.log("boop");
+    setMode(word);
+  };
+
+  const [mode, setMode] = useState("abc");
 
   return (
-    <View style={styles1.container}>
-      {/* //green background view */}
-      <View style={styles1.container}>
-        <View style={styles2.container}></View>
+    <View style={styles.greenBack}>
+      <View style={styles.mainButton}>
+        <Text
+          style={styles.btnText}
+          numberOfLines={1}
+          onPress={() => handlePress("US")}
+        >
+          boop
+        </Text>
       </View>
 
-      <View style={styles1.container}>
-        <View style={styles2.container}></View>
+      <View>
+        <Text style={styles.btnText}>{mode}</Text>
+      </View>
+
+      <View style={styles.mainButton}>
+        <Text
+          style={styles.btnText}
+          numberOfLines={1}
+          onPress={() => handlePress("OS")}
+        >
+          boop
+        </Text>
       </View>
     </View>
 
@@ -96,23 +116,15 @@ const styles = StyleSheet.create({
     // padding top if android, otheriwse 0
     // paddingTop: Platform.OS === "android" ? 20 : 0,
   },
-});
-
-const styles1 = StyleSheet.create({
-  container: {
+  greenBack: {
     flex: 1,
     color: "white",
     backgroundColor: "#028000",
     textAlign: "center",
-    justifyContent: "center",
+    justifyContent: "space-around",
     fontSize: 30,
-
-    // paddingTop: Platform.OS === "ios" ? "10%" : "10%",
   },
-});
-
-const styles2 = StyleSheet.create({
-  container: {
+  mainButton: {
     flex: 0.2,
     color: "white",
     backgroundColor: "#FFC300",
@@ -121,6 +133,15 @@ const styles2 = StyleSheet.create({
     alignSelf: "center",
     fontSize: 30,
     width: "80%",
-    paddingTop: Platform.OS === "ios" ? "10%" : "10%",
+  },
+  btnText: {
+    // flex: 1,
+    color: "white",
+    // backgroundColor: "#FFC300",
+    // textAlign: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    fontSize: 30,
+    width: "80%",
   },
 });
