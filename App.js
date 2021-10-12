@@ -20,39 +20,60 @@ import {
 } from "react-native";
 
 export default function App() {
-  console.log(useDeviceOrientation());
-  //destructuring orientation obj
-  const { landscape } = useDeviceOrientation();
-  const handlePress = (word) => {
-    console.log("boop");
-    setMode(word);
+  // console.log(useDeviceOrientation());
+
+  const [mode, setMode] = useState(null);
+  const [topText, setText] = useState("I am experiencing:");
+  var usArr = ["tip1", "tip2", "tip3", "tip4"];
+
+  const handleUS = () => {
+    setMode("Understeer");
+    setText("Understeer");
   };
 
-  const [mode, setMode] = useState("abc");
+  const handleOS = () => {
+    setMode("Oversteer");
+    setText("Oversteer");
+    styles.mainButton;
+  };
+
+  const mainMenu = () => {
+    setMode(null);
+    setText("I am experiencing:");
+  };
 
   return (
     <View style={styles.greenBack}>
-      <View style={styles.mainButton}>
+      <View>
+        <Text style={styles.topText}>{topText}</Text>
+      </View>
+      <View style={mode != null ? styles.hidden : styles.mainButton}>
         <Text
           style={styles.btnText}
           numberOfLines={1}
-          onPress={() => handlePress("US")}
+          onPress={() => handleUS()}
         >
-          boop
+          Understeer
         </Text>
       </View>
 
-      <View>
-        <Text style={styles.btnText}>{mode}</Text>
-      </View>
-
-      <View style={styles.mainButton}>
+      <View style={mode != null ? styles.hidden : styles.mainButton}>
         <Text
           style={styles.btnText}
           numberOfLines={1}
-          onPress={() => handlePress("OS")}
+          onPress={() => handleOS()}
         >
-          boop
+          Oversteer
+        </Text>
+      </View>
+
+      <View style={mode === null ? styles.hidden : styles.exitButton}>
+        <Text
+          style={styles.btnText}
+          numberOfLines={1}
+          onPress={() => mainMenu()}
+        >
+          Exit
         </Text>
       </View>
     </View>
@@ -143,5 +164,18 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     fontSize: 30,
     width: "80%",
+  },
+  topText: {
+    color: "white",
+    fontSize: 30,
+    paddingLeft: 20,
+  },
+  hidden: {
+    display: "none",
+  },
+  exitButton: {
+    backgroundColor: "#FFC300",
+    borderRadius: 3,
+    width: 100,
   },
 });
