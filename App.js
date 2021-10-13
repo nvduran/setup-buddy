@@ -4,6 +4,7 @@ import {
   useDeviceOrientation,
 } from "@react-native-community/hooks";
 import React, { useState } from "react";
+import Tip from "./components/Tip";
 import {
   StyleSheet,
   Text,
@@ -25,6 +26,7 @@ export default function App() {
   const [mode, setMode] = useState(null);
   const [topText, setText] = useState("I am experiencing:");
   var usArr = ["tip1", "tip2", "tip3", "tip4"];
+  const [testArr, setArr] = useState(usArr);
 
   const handleUS = () => {
     setMode("Understeer");
@@ -68,6 +70,16 @@ export default function App() {
       </View>
 
       <View style={mode === null ? styles.hidden : styles.exitButton}>
+        {usArr.map((item, index) => {
+          return (
+            <View key={index}>
+              <Tip text={item} />
+            </View>
+          );
+        })}
+      </View>
+
+      <View style={mode === null ? styles.hidden : styles.exitButton}>
         <Text
           style={styles.btnText}
           numberOfLines={1}
@@ -77,54 +89,6 @@ export default function App() {
         </Text>
       </View>
     </View>
-
-    // <View style={styles.container}>
-    //   <View
-    //     style={{
-    //       backgroundColor: "#028000",
-    //       width: "100%",
-    //       flex: 1,
-    //       height: "10%",
-    //     }}
-    //   >
-    //     <Text style={styles1.container}>Title</Text>
-    //   </View>
-
-    //   <View
-    //     style={{
-    //       backgroundColor: "dodgerblue",
-    //       flex: 1,
-    //       // if landscape: 10%, otherwise: 20%
-    //       height: landscape ? "10%" : "20%",
-    //     }}
-    //   >
-    //     <Text numberOfLines={1} onPress={handlePress}>
-    //       boop
-    //     </Text>
-    //   </View>
-
-    //   <TouchableHighlight onPress={() => console.log("img tapped")}>
-    //     <Image
-    //       source={{
-    //         width: 200,
-    //         height: 300,
-    //         uri: "https://picsum.photos/200/300",
-    //       }}
-    //     />
-    //   </TouchableHighlight>
-    //   <Button
-    //     color="#03CD00"
-    //     title="click"
-    //     onPress={() =>
-    //       Alert.alert("Cool title", "Cool message", [
-    //         { text: "btn 1", onPress: () => console.log("btn 1") },
-    //         { text: "btn 2", onPress: () => console.log("btn 2") },
-    //       ])
-    //     }
-    //   />
-
-    //   <StatusBar style="auto" />
-    // </View>
   );
 }
 
