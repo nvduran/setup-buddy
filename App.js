@@ -69,7 +69,7 @@ export default function App() {
         </Text>
       </View>
 
-      <View style={mode === null ? styles.hidden : styles.exitButton}>
+      <View style={mode === null ? styles.hidden : styles.tips}>
         {usArr.map((item, index) => {
           return (
             <View key={index}>
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   mainButton: {
     flex: 0.2,
     color: "white",
-    backgroundColor: "#FFC300",
+    backgroundColor: "#3DA934",
     textAlign: "center",
     justifyContent: "center",
     alignSelf: "center",
@@ -138,8 +138,15 @@ const styles = StyleSheet.create({
     display: "none",
   },
   exitButton: {
-    backgroundColor: "#FFC300",
-    borderRadius: 3,
-    width: 100,
+    // position: "absolute",
+    // bottom: 20,
+    // left: 10,
+    // width: 100,
+    // paddingTop: 500,
+  },
+  tips: {
+    color: "white",
+    fontSize: 30,
+    // alignSelf: "center",
   },
 });
