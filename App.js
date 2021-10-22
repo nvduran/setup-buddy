@@ -25,7 +25,26 @@ export default function App() {
 
   const [mode, setMode] = useState(null);
   const [topText, setText] = useState("I am experiencing:");
-  var usArr = ["tip1", "tip2", "tip3", "tip4"];
+  var usArr = [
+    "Front toe out: Increase",
+    "Front anti-roll bar: Soften",
+    "Front springs: Soften",
+    "Rear springs: Stiffen",
+    "Front tire pressure: Lower",
+    "Rear anti-roll bar: Stiffen",
+    "Front wing: Increase",
+    "Rear wing: Decrease",
+    "Brake balance: Rearward",
+  ];
+  var osArr = [
+    "Front toe out: Decrease",
+    "Front anti-roll bar: Stiffen",
+    "Front springs: Stiffen",
+    "Rear springs: Soften",
+    "Rear tire pressure: Lower",
+    "Front wing: Decrease",
+    "Rear wing: Increase",
+  ];
   const [testArr, setArr] = useState(usArr);
 
   const handleUS = () => {
@@ -69,8 +88,18 @@ export default function App() {
         </Text>
       </View>
 
-      <View style={mode === null ? styles.hidden : styles.tips}>
+      <View style={mode === "Understeer" ? styles.tips : styles.hidden}>
         {usArr.map((item, index) => {
+          return (
+            <View key={index}>
+              <Tip text={item} />
+            </View>
+          );
+        })}
+      </View>
+
+      <View style={mode === "Oversteer" ? styles.tips : styles.hidden}>
+        {osArr.map((item, index) => {
           return (
             <View key={index}>
               <Tip text={item} />
