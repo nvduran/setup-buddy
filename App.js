@@ -24,7 +24,7 @@ export default function App() {
   // console.log(useDeviceOrientation());
 
   const [mode, setMode] = useState(null);
-  const [topText, setText] = useState("I am experiencing:");
+  const [topText, setText] = useState("Issue:");
   var usArr = [
     "Front toe out: Increase",
     "Front anti-roll bar: Soften",
@@ -60,7 +60,7 @@ export default function App() {
 
   const mainMenu = () => {
     setMode(null);
-    setText("I am experiencing:");
+    setText("Issue:");
   };
 
   return (
@@ -68,25 +68,23 @@ export default function App() {
       <View>
         <Text style={styles.topText}>{topText}</Text>
       </View>
-      <View style={mode != null ? styles.hidden : styles.mainButton}>
-        <Text
-          style={styles.btnText}
-          numberOfLines={1}
-          onPress={() => handleUS()}
-        >
+      <TouchableOpacity
+        style={mode != null ? styles.hidden : styles.mainButton}
+        onPress={() => handleUS()}
+      >
+        <Text style={styles.btnText} numberOfLines={1}>
           Understeer
         </Text>
-      </View>
+      </TouchableOpacity>
 
-      <View style={mode != null ? styles.hidden : styles.mainButton}>
-        <Text
-          style={styles.btnText}
-          numberOfLines={1}
-          onPress={() => handleOS()}
-        >
+      <TouchableOpacity
+        style={mode != null ? styles.hidden : styles.mainButton}
+        onPress={() => handleOS()}
+      >
+        <Text style={styles.btnText} numberOfLines={1}>
           Oversteer
         </Text>
-      </View>
+      </TouchableOpacity>
 
       <View style={mode === "Understeer" ? styles.tips : styles.hidden}>
         {usArr.map((item, index) => {
@@ -134,7 +132,6 @@ const styles = StyleSheet.create({
     flex: 1,
     color: "white",
     backgroundColor: "#028000",
-    textAlign: "center",
     justifyContent: "space-around",
     fontSize: 30,
   },
@@ -142,25 +139,24 @@ const styles = StyleSheet.create({
     flex: 0.2,
     color: "white",
     backgroundColor: "#3DA934",
-    textAlign: "center",
     justifyContent: "center",
     alignSelf: "center",
     fontSize: 30,
     width: "80%",
+    maxHeight: "10%",
+    borderRadius: 100,
   },
   btnText: {
-    // flex: 1,
     color: "white",
-    // backgroundColor: "#FFC300",
-    // textAlign: "center",
     justifyContent: "center",
     alignSelf: "center",
     fontSize: 30,
-    width: "80%",
+    width: "50%",
   },
   topText: {
+    // fontFamily: "Calibri",
     color: "white",
-    fontSize: 30,
+    fontSize: 40,
     paddingLeft: 20,
   },
   hidden: {
