@@ -18,6 +18,7 @@ import {
   Alert,
   Platform,
   Dimensions,
+  ScrollView,
 } from "react-native";
 
 export default function App() {
@@ -42,6 +43,7 @@ export default function App() {
     "Front springs: Stiffen",
     "Rear springs: Soften",
     "Rear tire pressure: Lower",
+    "Rear anti-roll bar: Soften",
     "Front wing: Decrease",
     "Rear wing: Increase",
   ];
@@ -66,6 +68,9 @@ export default function App() {
   return (
     <View style={styles.greenBack}>
       <View>
+        <Text style={styles.topLogo}>Setup Buddy</Text>
+      </View>
+      <View>
         <Text style={styles.topText}>{topText}</Text>
       </View>
       <TouchableOpacity
@@ -86,7 +91,7 @@ export default function App() {
         </Text>
       </TouchableOpacity>
 
-      <View style={mode === "Understeer" ? styles.tips : styles.hidden}>
+      <ScrollView style={mode === "Understeer" ? styles.tips : styles.hidden}>
         {usArr.map((item, index) => {
           return (
             <View key={index}>
@@ -94,9 +99,9 @@ export default function App() {
             </View>
           );
         })}
-      </View>
+      </ScrollView>
 
-      <View style={mode === "Oversteer" ? styles.tips : styles.hidden}>
+      <ScrollView style={mode === "Oversteer" ? styles.tips : styles.hidden}>
         {osArr.map((item, index) => {
           return (
             <View key={index}>
@@ -104,15 +109,15 @@ export default function App() {
             </View>
           );
         })}
-      </View>
+      </ScrollView>
 
-      <View style={mode === null ? styles.hidden : styles.exitButton}>
+      <View style={mode === null ? styles.hidden : styles.exitButtonContainer}>
         <Text
-          style={styles.btnText}
+          style={styles.exitButtonText}
           numberOfLines={1}
           onPress={() => mainMenu()}
         >
-          Exit
+          Back
         </Text>
       </View>
     </View>
@@ -132,46 +137,57 @@ const styles = StyleSheet.create({
     flex: 1,
     color: "white",
     backgroundColor: "#028000",
-    justifyContent: "space-around",
+    // justifyContent: "space-around",
     fontSize: 30,
   },
   mainButton: {
-    flex: 0.2,
+    // flex: 0.2,
     color: "white",
     backgroundColor: "#3DA934",
     justifyContent: "center",
     alignSelf: "center",
-    fontSize: 30,
-    width: "80%",
-    maxHeight: "10%",
+    fontSize: 24,
+    width: "60%",
+    maxHeight: "8%",
+    minHeight: "8%",
     borderRadius: 100,
+    marginTop: "30%",
   },
   btnText: {
     color: "white",
     justifyContent: "center",
     alignSelf: "center",
-    fontSize: 30,
-    width: "50%",
+    fontSize: 24,
   },
   topText: {
     // fontFamily: "Calibri",
     color: "white",
-    fontSize: 40,
+    fontSize: 24,
     paddingLeft: 20,
+    paddingTop: 60,
+    paddingBottom: 40,
   },
   hidden: {
     display: "none",
   },
-  exitButton: {
-    // position: "absolute",
-    // bottom: 20,
-    // left: 10,
-    // width: 100,
-    // paddingTop: 500,
+  exitButtonContainer: {
+    paddingBottom: 20,
+    justifyContent: "center",
+  },
+  exitButtonText: {
+    color: "white",
+    fontSize: 24,
+    alignSelf: "center",
   },
   tips: {
     color: "white",
     fontSize: 30,
     // alignSelf: "center",
+  },
+  topLogo: {
+    color: "white",
+    fontSize: 60,
+    paddingLeft: 20,
+    paddingTop: 80,
   },
 });
