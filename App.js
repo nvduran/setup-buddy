@@ -19,13 +19,17 @@ import {
   Platform,
   Dimensions,
   ScrollView,
+  Modal,
+  Pressable,
 } from "react-native";
 
 export default function App() {
   // console.log(useDeviceOrientation());
 
   const [mode, setMode] = useState(null);
-  const [topText, setText] = useState("Issue:");
+  const [topText, setText] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
+
   var usArr = [
     "Front toe out: Increase",
     "Front anti-roll bar: Soften",
@@ -37,6 +41,19 @@ export default function App() {
     "Rear wing: Decrease",
     "Brake balance: Rearward",
   ];
+
+  var usArr2 = [
+    "Rear springs: Stiffen",
+    "Front wing: Increase",
+    "Rear wing: Decrease",
+    "Rear anti-roll bar: Stiffen",
+    "Brake balance: Rearward",
+    "Front springs: Soften",
+    "Front anti-roll bar: Soften",
+    "Front tire pressure: Lower",
+    "Front toe out: Increase",
+  ];
+
   var osArr = [
     "Front toe out: Decrease",
     "Front anti-roll bar: Stiffen",
@@ -47,6 +64,19 @@ export default function App() {
     "Front wing: Decrease",
     "Rear wing: Increase",
   ];
+
+  // invert osArr array
+  var osArr2 = [
+    "Rear springs: Soften",
+    "Front wing: Decrease",
+    "Rear wing: Increase",
+    "Rear anti-roll bar: Soften",
+    "Brake balance: Forward",
+    "Front springs: Stiffen",
+    "Front anti-roll bar: Stiffen",
+    "Front toe out: Decrease",
+  ];
+
   const [testArr, setArr] = useState(usArr);
 
   const handleUS = () => {
@@ -62,13 +92,13 @@ export default function App() {
 
   const mainMenu = () => {
     setMode(null);
-    setText("Issue:");
+    setText(null);
   };
 
   return (
     <View style={styles.greenBack}>
-      <View>
-        <Text style={styles.topLogo}>Setup Buddy</Text>
+      <View style={styles.logoContainer}>
+        <Text style={styles.topLogoText}>Setup Buddy</Text>
       </View>
       <View>
         <Text style={styles.topText}>{topText}</Text>
@@ -90,6 +120,32 @@ export default function App() {
           Oversteer
         </Text>
       </TouchableOpacity>
+
+      {/* Filter modal */}
+      <View>
+        <Modal animationType="slide" visible={modalVisible} transparent={true}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <TouchableOpacity style={styles.filterButton}>
+                <Text
+                  style={styles.filterBtnText}
+                  onPress={() => setModalVisible(false)}
+                >
+                  High to Low Speed
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.filterButton}>
+                <Text
+                  style={styles.filterBtnText}
+                  onPress={() => setModalVisible(false)}
+                >
+                  Corner Entry to Exit
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+      </View>
 
       <ScrollView style={mode === "Understeer" ? styles.tips : styles.hidden}>
         {usArr.map((item, index) => {
@@ -119,6 +175,13 @@ export default function App() {
         >
           Back
         </Text>
+        <Text
+          style={styles.filterButtonText}
+          numberOfLines={1}
+          onPress={() => setModalVisible(true)}
+        >
+          Filter
+        </Text>
       </View>
     </View>
   );
@@ -136,14 +199,14 @@ const styles = StyleSheet.create({
   greenBack: {
     flex: 1,
     color: "white",
-    backgroundColor: "#028000",
+    backgroundColor: "#186A3B",
     // justifyContent: "space-around",
     fontSize: 30,
   },
   mainButton: {
     // flex: 0.2,
     color: "white",
-    backgroundColor: "#3DA934",
+    backgroundColor: "#239B56",
     justifyContent: "center",
     alignSelf: "center",
     fontSize: 24,
@@ -158,13 +221,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
     fontSize: 24,
+    fontFamily: Platform.OS === "android" ? "sans-serif-thin" : "Futura",
   },
   topText: {
-    // fontFamily: "Calibri",
+    // fontFamily: "monospace",
     color: "white",
     fontSize: 24,
     paddingLeft: 20,
-    paddingTop: 60,
+    paddingTop: 40,
     paddingBottom: 40,
   },
   hidden: {
@@ -172,22 +236,73 @@ const styles = StyleSheet.create({
   },
   exitButtonContainer: {
     paddingBottom: 20,
-    justifyContent: "center",
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
   exitButtonText: {
     color: "white",
+    fontFamily: Platform.OS === "android" ? "sans-serif-light" : "Futura",
     fontSize: 24,
-    alignSelf: "center",
+    paddingLeft: 20,
   },
   tips: {
     color: "white",
     fontSize: 30,
     // alignSelf: "center",
   },
-  topLogo: {
+  topLogoText: {
     color: "white",
-    fontSize: 60,
+    fontSize: 56,
+    fontFamily: Platform.OS === "android" ? "sans-serif-light" : "Futura",
+    letterSpacing: 0,
+    paddingLeft: 10,
+    paddingBottom: 0,
+    paddingTop: Platform.OS === "android" ? 40 : 80,
+  },
+  logoContainer: {
+    backgroundColor: "#186A3B",
+  },
+  filterButtonText: {
+    color: "white",
+    fontFamily: Platform.OS === "android" ? "sans-serif-light" : "Futura",
+    fontSize: 24,
     paddingLeft: 20,
-    paddingTop: 80,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "#186A3B",
+    borderRadius: 20,
+    padding: 30,
+    alignItems: "center",
+    justifyContent: "space-around",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  filterButton: {
+    backgroundColor: "#239B56",
+    borderRadius: 10,
+    width: "100%",
+    height: "20%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  filterBtnText: {
+    color: "white",
+    fontSize: 24,
+    fontFamily: Platform.OS === "android" ? "sans-serif-light" : "Futura",
+    paddingLeft: 20,
+    paddingRight: 20,
   },
 });

@@ -11,12 +11,16 @@ const Tip = (props) => {
 
 const styles = StyleSheet.create({
   tipContainer: {
-    backgroundColor: "#3DA934",
+    backgroundColor: "#239B56",
     borderRadius: 4,
     padding: 8,
     margin: 12,
   },
-  tipText: { color: "white", alignSelf: "center" },
+  tipText: {
+    color: "white",
+    alignSelf: "center",
+    fontFamily: Platform.OS === "android" ? "sans-serif-thin" : "Futura",
+  },
 });
 
 export default Tip;
