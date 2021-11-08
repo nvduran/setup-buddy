@@ -24,8 +24,6 @@ import {
 } from "react-native";
 
 export default function App() {
-  // console.log(useDeviceOrientation());
-
   const [mode, setMode] = useState(null);
   const [topText, setText] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
@@ -65,7 +63,6 @@ export default function App() {
     "Rear wing: Increase",
   ];
 
-  // invert osArr array
   var osArr2 = [
     "Rear springs: Soften",
     "Front wing: Decrease",
@@ -77,17 +74,41 @@ export default function App() {
     "Front toe out: Decrease",
   ];
 
-  const [testArr, setArr] = useState(usArr);
+  const [Arr, setArr] = useState(usArr);
 
   const handleUS = () => {
     setMode("Understeer");
     setText("Understeer");
+    setArr(usArr);
   };
 
   const handleOS = () => {
     setMode("Oversteer");
     setText("Oversteer");
+    setArr(osArr);
     styles.mainButton;
+  };
+
+  const handleHL = () => {
+    setModalVisible(false);
+    let modeVar;
+    if (mode === "Understeer") {
+      modeVar = usArr;
+    } else {
+      modeVar = osArr;
+    }
+    setArr(modeVar);
+  };
+
+  const handleCN = () => {
+    let modeVar;
+    setModalVisible(false);
+    if (mode === "Understeer") {
+      modeVar = usArr2;
+    } else if (mode === "Oversteer") {
+      modeVar = osArr2;
+    }
+    setArr(modeVar);
   };
 
   const mainMenu = () => {
@@ -127,18 +148,12 @@ export default function App() {
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <TouchableOpacity style={styles.filterButton}>
-                <Text
-                  style={styles.filterBtnText}
-                  onPress={() => setModalVisible(false)}
-                >
+                <Text style={styles.filterBtnText} onPress={() => handleHL()}>
                   High to Low Speed
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.filterButton}>
-                <Text
-                  style={styles.filterBtnText}
-                  onPress={() => setModalVisible(false)}
-                >
+                <Text style={styles.filterBtnText} onPress={() => handleCN()}>
                   Corner Entry to Exit
                 </Text>
               </TouchableOpacity>
@@ -147,18 +162,8 @@ export default function App() {
         </Modal>
       </View>
 
-      <ScrollView style={mode === "Understeer" ? styles.tips : styles.hidden}>
-        {usArr.map((item, index) => {
-          return (
-            <View key={index}>
-              <Tip text={item} />
-            </View>
-          );
-        })}
-      </ScrollView>
-
-      <ScrollView style={mode === "Oversteer" ? styles.tips : styles.hidden}>
-        {osArr.map((item, index) => {
+      <ScrollView style={mode ? styles.tips : styles.hidden}>
+        {Arr.map((item, index) => {
           return (
             <View key={index}>
               <Tip text={item} />
@@ -192,19 +197,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     alignItems: "center",
-    // justifyContent: "center",
-    // padding top if android, otheriwse 0
-    // paddingTop: Platform.OS === "android" ? 20 : 0,
   },
   greenBack: {
     flex: 1,
     color: "white",
     backgroundColor: "#186A3B",
-    // justifyContent: "space-around",
     fontSize: 30,
   },
   mainButton: {
-    // flex: 0.2,
     color: "white",
     backgroundColor: "#239B56",
     justifyContent: "center",
@@ -224,7 +224,6 @@ const styles = StyleSheet.create({
     fontFamily: Platform.OS === "android" ? "sans-serif-thin" : "Futura",
   },
   topText: {
-    // fontFamily: "monospace",
     color: "white",
     fontSize: 24,
     paddingLeft: 20,
@@ -248,7 +247,6 @@ const styles = StyleSheet.create({
   tips: {
     color: "white",
     fontSize: 30,
-    // alignSelf: "center",
   },
   topLogoText: {
     color: "white",
