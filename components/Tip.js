@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   tipText: {
     color: "white",
     alignSelf: "center",
-    fontFamily: Platform.OS === "android" ? "sans-serif-thin" : "Gill Sans",
+    fontFamily: Platform.OS === "android" ? "sans-serif" : "Gill Sans",
   },
 });
 
