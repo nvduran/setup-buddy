@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
     width: "60%",
     maxHeight: "8%",
     minHeight: "8%",
-    borderRadius: 100,
+    borderRadius: 10,
     marginTop: "30%",
   },
   btnText: {
@@ -221,7 +221,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
     fontSize: 24,
-    fontFamily: Platform.OS === "android" ? "sans-serif-thin" : "Futura",
+    fontFamily:
+      Platform.OS === "android" ? "sans-serif-thin" : "GillSans-Light",
   },
   topText: {
     color: "white",
@@ -240,7 +241,8 @@ const styles = StyleSheet.create({
   },
   exitButtonText: {
     color: "white",
-    fontFamily: Platform.OS === "android" ? "sans-serif-light" : "Futura",
+    fontFamily:
+      Platform.OS === "android" ? "sans-serif-light" : "GillSans-Light",
     fontSize: 24,
     paddingLeft: 20,
   },
@@ -251,18 +253,21 @@ const styles = StyleSheet.create({
   topLogoText: {
     color: "white",
     fontSize: 56,
-    fontFamily: Platform.OS === "android" ? "sans-serif-light" : "Futura",
+    fontFamily:
+      Platform.OS === "android" ? "sans-serif-light" : "GillSans-Light",
     letterSpacing: 0,
-    paddingLeft: 10,
+    paddingLeft: 0,
     paddingBottom: 0,
     paddingTop: Platform.OS === "android" ? 40 : 80,
+    alignSelf: "center",
   },
   logoContainer: {
     backgroundColor: "#186A3B",
   },
   filterButtonText: {
     color: "white",
-    fontFamily: Platform.OS === "android" ? "sans-serif-light" : "Futura",
+    fontFamily:
+      Platform.OS === "android" ? "sans-serif-light" : "GillSans-Light",
     fontSize: 24,
     paddingLeft: 20,
   },
@@ -299,7 +304,8 @@ const styles = StyleSheet.create({
   filterBtnText: {
     color: "white",
     fontSize: 24,
-    fontFamily: Platform.OS === "android" ? "sans-serif-light" : "Futura",
+    fontFamily:
+      Platform.OS === "android" ? "sans-serif-light" : "GillSans-Light",
     paddingLeft: 20,
     paddingRight: 20,
   },
